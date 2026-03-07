@@ -4,7 +4,7 @@ export default function App() {
 
   const [listening, setListening] = useState(false);
   const [messages, setMessages] = useState([]);
-
+const [user, setuser] = useState()
   const recognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -21,7 +21,7 @@ export default function App() {
       const speech = event.results[0][0].transcript;
 
       addMessage("You", speech);
-
+       
       processCommand(speech.toLowerCase());
 
       setListening(false);
@@ -59,6 +59,41 @@ export default function App() {
       speak("i am good and you")
     }
 
+    if(command.includes(" can you beat")){
+      speak("No . i am only helping people")
+    }
+
+    if(command.includes("call" || 'call now')){
+      speak("ok .. i will call the police .. call 112 .. call 112 .. call 112 .. call 112")
+    }
+  
+       if(command.includes("emergency")){
+      speak("ok .. i will call the police .. call 112 .. emergency .. emergency .. emergency .. emergency .. call 112 .. emergency.. call 112 .. call 112")
+    }
+  
+
+
+        if(command.includes("fuck")){
+      speak("ok .. i will call the police .. call 112 .. call 112 .. call 112 .. call 112")
+    }
+
+    if(command.includes("fight")){
+      speak("No . i am only helping people . next question ask me")
+    }
+
+    if(command.includes("prime minister of india")){
+      speak("prime misitor of india is .. mister narender modi")
+    }
+
+    if(command.includes("india"|| 'bharat' || 'hindustan')){
+      speak("india is the largest economy and very powerfull country .. and indian people are very honestly .. 1947 did you know .. india is the best country ever and ever .. this is the next super power and next high economy country .. i loved it .. bharat mata ki jay .. vande matram")
+    }
+
+     if(command.includes('bharat')){
+      speak("india is the largest economy and very powerfull country .. and indian people are very honestly .. 1947 did you know .. india is the best country ever and ever .. this is the next super power and next high economy country .. i loved it .. bharat mata ki jay ")
+    }
+
+
     if(command.includes('counting' || 'count')){
       for(let i=1;i<=10;i++){
         speak(` ${i}`);
@@ -84,10 +119,29 @@ export default function App() {
       return;
     }
 
-    if (command.includes("time"|| "what is the time")) {
+    
+  const proccessCommand=()=>{
+    if(command.includes('search')){
+      const query=command.replace("search","").trim();
+      speak(`Searching ${query}`)
+      window.open(`https://www.google.com/search?q=${query}`)
+    }
+  }
+
+
+  proccessCommand();
+
+  
+
+    if (command.includes("time"|| "what is the time"|| 'jarvish time')) {
       const time = new Date().toLocaleTimeString();
       speak(`Current time is ${time}`);
       return;
+    }
+
+if(command.includes('today'||' weather')){
+      speak("ok i will try to open jarvish search max mod ");
+      window.open("https://www.google.com/search?q=weather");
     }
     
     if(command.includes("what's up" || "what'sup" || 'whatsup')){
@@ -146,13 +200,13 @@ if(command.includes("who are you")){
        }
 
 
-     if(command.includes("cricket")){
-        speak("ok i will try ")
+     if(command.includes("cricket match")){
+        speak("ok i will try to open cricket match in youtube ")
         window.open("https://youtube.com/results?search_query=cricket+match")
        }
 
-        if(command.includes("football")){
-        speak("ok i will try ")
+        if(command.includes("football match")){
+        speak("ok i will try to open football match in youtube ")
         window.open("https://youtube.com/results?search_query=football+match")
        }
 
@@ -180,7 +234,7 @@ if(command.includes("who are you")){
 
        if(command.includes("news")){
         speak("i will try to open news")
-        window.open("https://www.news.com")
+        window.open("https://www.newsnation.com")
        }
 
 
@@ -218,19 +272,45 @@ if(command.includes("who are you")){
         speak("i will try to open")
         window.open("https://www.youtube.com/@physicsWallah")
        }
+         
+            if(command.includes("chemistry")){
+        speak("i will try to open")
+        window.open("https://www.youtube.com/results?search_query=chemistry+videos")
+       }
+  
+         if(command.includes("biology")){
+        speak("i will try to open")
+        window.open("https://www.youtube.com/results?search_query=biology+videos")
+       }
+ 
+          if(command.includes("snapchat")){
+        speak("i will try to open")
+        window.open("https://www.snapchat.com")
+       }
+
 
        if(command.includes("funny")){
         speak("i will try to open funny videos")
         window.open("https://youtube.com/results?search_query=funny+video")
        }
 
+         if(command.includes("crickbuz" || 'cricbuzz')){
+        speak("i will try to open")
+        window.open("https://www.crickbuz.com")
+       }
+
         if(command.includes("chalisa")){
-        speak("i will try to open funny videos")
+        speak("i will try to open chalisa videos")
         window.open("https://youtube.com/results?search_query=hanumanchalisa+video")
        }
 
-       if(command.includes("hanuman")){
-        speak("jay shree raam")
+        if(command.includes("bhajan")){
+        speak("i will try to open bhajan videos")
+        window.open("https://youtube.com/results?search_query=bhajan+video")
+       }
+
+       if(command.includes("hanuman chalisa")){
+        speak("ok i will try to open youtube and play hanuman chalisa")
         window.open("https://youtube.com/results?search_query=hanumanchalisa+video")
        }
 
@@ -242,9 +322,20 @@ if(command.includes("who are you")){
         speak("jay mata di")
        }
 
+       if(command.includes("i kill you")){
+        speak("naa .  munna . naa ")
+       }
 
-     
 
+
+     if(command.includes("friend")){
+      speak("true friend always win ... true friend always help any situations")
+     }
+
+    if(command.includes("friends")){
+      speak("true friend always win ... true friend always help any situations")
+     }
+       
   };
 
   return (
@@ -268,7 +359,7 @@ if(command.includes("who are you")){
 
       <button
         onClick={startListening}
-        className={`mt-6 px-8 py-4 rounded-full text-lg font-bold transition 
+        className={`mt-6 px-8 py-4  rounded-full text-lg font-bold transition 
         ${
           listening
             ? "bg-red-500 animate-pulse"
