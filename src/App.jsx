@@ -1,10 +1,60 @@
 import { useState } from "react";
+import { TfiSearch } from "react-icons/tfi";
+import {GoogleGenAI} from '@google/genai'
 
 export default function App() {
 
   const [listening, setListening] = useState(false);
   const [messages, setMessages] = useState([]);
-const [user, setuser] = useState()
+
+
+
+
+// AI
+
+const [question1, setquestion1] = useState('')
+  const [question2, setquestion2] = useState('')
+const ai = new GoogleGenAI({
+  apiKey:"AIzaSyDf6v5cxxmTZfqOyeYUI2_uVsKBmcDqzOA"
+});
+async function main(){
+const response=await ai.models.generateContent({
+  model:'gemini-3.1-flash-lite-preview',
+  contents:question1
+  
+})
+
+setTimeout(()=>{
+  console.log(response.text)
+ console.log(response)
+  setquestion2(response.text)
+
+  
+},500)
+
+}
+
+async function fun(){
+await main();
+console.log('Please wait .....')
+setquestion1('')
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// AI
+
+
+
   const recognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -61,7 +111,10 @@ const [user, setuser] = useState()
 
     if(command.includes(" can you beat")){
       speak("No . i am only helping people")
+
     }
+
+    
 
     if(command.includes("call" || 'call now')){
       speak("ok .. i will call the police .. call 112 .. call 112 .. call 112 .. call 112")
@@ -335,40 +388,60 @@ if(command.includes("who are you")){
     if(command.includes("friends")){
       speak("true friend always win ... true friend always help any situations")
      }
-       
+
+    
   };
 
   return (
     <div className="min-h-screen bg-blue-950 from-black via-gray-900 to-blue-900 text-white flex flex-col items-center p-6">
 
       <h1 className="text-4xl font-bold mb-4 text-cyan-400">
-        JARVIS Voice Assistant
+        JARVIS Voice Assistant <br />
+       
       </h1>
 
       <div className="w-full max-w-md bg-black/40 backdrop-blur-lg rounded-xl p-4 h-96 overflow-y-auto shadow-lg">
-
+      <p>{question2}</p>
         {messages.map((msg, i) => (
           <div key={i} className="mb-2">
             <span className="font-bold text-cyan-300">
               {msg.sender}:
+          
             </span>{" "}
             {msg.text}
+              
+            
           </div>
         ))}
       </div>
+ <input 
 
-      <button
+      className='border-2 active:border-black hover:border-black h-10 w-50 placeholder:text-bold  rounded-md  transition-all transform:2s linear hover:h-12 hover:w-52'
+      placeholder='Ask me anything...'
+      value={question1}
+       onChange={(e)=>{
+          setquestion1(e.target.value)
+       }}
+      type="text" />
+    <div className=" w-70 flex items-center justify-around">
+        <button
         onClick={startListening}
-        className={`mt-6 px-8 py-4  rounded-full text-lg font-bold transition 
+        className={`mt-4 px-4 py-4  rounded-full text-lg font-bold transition 
         ${
           listening
             ? "bg-red-500 animate-pulse"
             : "bg-cyan-500 hover:bg-cyan-600"
         }`}
       >
-        {listening ? "Listening..." : "Ask me anything 🎤"}
+        {listening ? "Listening..." : "Ask me anything 🎤"} 
+         
       </button>
-
+      <button onClick={fun } className='hover:text-3xl active:text-4xl mt-4 rounded-md text-2xl'><TfiSearch /></button>
     </div>
+  
+    
+    </div>
+    
   );
 }
+
